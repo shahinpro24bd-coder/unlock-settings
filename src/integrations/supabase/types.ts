@@ -14,13 +14,98 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      cms_admins: {
+        Row: {
+          password_hash: string
+          username: string
+        }
+        Insert: {
+          password_hash: string
+          username: string
+        }
+        Update: {
+          password_hash?: string
+          username?: string
+        }
+        Relationships: []
+      }
+      cms_content: {
+        Row: {
+          cms_id: string
+          item: Json
+          page: string
+          updated_at: string
+        }
+        Insert: {
+          cms_id: string
+          item: Json
+          page: string
+          updated_at?: string
+        }
+        Update: {
+          cms_id?: string
+          item?: Json
+          page?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      cms_login_attempts: {
+        Row: {
+          created_at: string
+          id: number
+        }
+        Insert: {
+          created_at?: string
+          id?: never
+        }
+        Update: {
+          created_at?: string
+          id?: never
+        }
+        Relationships: []
+      }
+      cms_sessions: {
+        Row: {
+          expires_at: string
+          token: string
+          username: string
+        }
+        Insert: {
+          expires_at?: string
+          token?: string
+          username: string
+        }
+        Update: {
+          expires_at?: string
+          token?: string
+          username?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "cms_sessions_username_fkey"
+            columns: ["username"]
+            isOneToOne: false
+            referencedRelation: "cms_admins"
+            referencedColumns: ["username"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      cms_check: { Args: { p_token: string }; Returns: boolean }
+      cms_login: {
+        Args: { p_password: string; p_username: string }
+        Returns: string
+      }
+      cms_logout: { Args: { p_token: string }; Returns: undefined }
+      cms_save: {
+        Args: { p_items: Json; p_page: string; p_token: string }
+        Returns: number
+      }
     }
     Enums: {
       [_ in never]: never
