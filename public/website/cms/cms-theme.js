@@ -217,7 +217,18 @@
         if (!rule.selectorText || !rule.cssText) continue;
         var text = rule.cssText;
         if (!touched(text)) continue;
-        out.push(rule.selectorText + text.slice(text.indexOf("{")));
+        /* keep only the colour-bearing declarations. Re-emitting layout
+           declarations (grid columns, padding, ...) after the original
+           stylesheet would override their @media variants and break the
+           page structure. */
+        var body = text.slice(text.indexOf("{") + 1, text.lastIndexOf("}"));
+        var decls = body.split(";");
+        var kept = [];
+        for (var d = 0; d < decls.length; d++) {
+          var decl = decls[d].trim();
+          if (decl && touched(decl)) kept.push(decl);
+        }
+        if (kept.length) out.push(rule.selectorText + "{" + kept.join(";") + "}");
       } catch (e) {
         /* unreadable (cross-origin) rule */
       }
