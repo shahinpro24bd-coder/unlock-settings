@@ -10,33 +10,68 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as PageRouteImport } from './routes/$page'
+import { Route as ApiPublicCmsLoginRouteImport } from './routes/api.public.cms.login'
+import { Route as ApiPublicCmsLogoutRouteImport } from './routes/api.public.cms.logout'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PageRoute = PageRouteImport.update({
+  id: '/$page',
+  path: '/$page',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiPublicCmsLoginRoute = ApiPublicCmsLoginRouteImport.update({
+  id: '/api/public/cms/login',
+  path: '/api/public/cms/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiPublicCmsLogoutRoute = ApiPublicCmsLogoutRouteImport.update({
+  id: '/api/public/cms/logout',
+  path: '/api/public/cms/logout',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/$page': typeof PageRoute
+  '/api/public/cms/login': typeof ApiPublicCmsLoginRoute
+  '/api/public/cms/logout': typeof ApiPublicCmsLogoutRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/$page': typeof PageRoute
+  '/api/public/cms/login': typeof ApiPublicCmsLoginRoute
+  '/api/public/cms/logout': typeof ApiPublicCmsLogoutRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/$page': typeof PageRoute
+  '/api/public/cms/login': typeof ApiPublicCmsLoginRoute
+  '/api/public/cms/logout': typeof ApiPublicCmsLogoutRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/$page' | '/api/public/cms/login' | '/api/public/cms/logout'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/$page' | '/api/public/cms/login' | '/api/public/cms/logout'
+  id:
+    | '__root__'
+    | '/'
+    | '/$page'
+    | '/api/public/cms/login'
+    | '/api/public/cms/logout'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  PageRoute: typeof PageRoute
+  ApiPublicCmsLoginRoute: typeof ApiPublicCmsLoginRoute
+  ApiPublicCmsLogoutRoute: typeof ApiPublicCmsLogoutRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +83,35 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/$page': {
+      id: '/$page'
+      path: '/$page'
+      fullPath: '/$page'
+      preLoaderRoute: typeof PageRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/cms/login': {
+      id: '/api/public/cms/login'
+      path: '/api/public/cms/login'
+      fullPath: '/api/public/cms/login'
+      preLoaderRoute: typeof ApiPublicCmsLoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/cms/logout': {
+      id: '/api/public/cms/logout'
+      path: '/api/public/cms/logout'
+      fullPath: '/api/public/cms/logout'
+      preLoaderRoute: typeof ApiPublicCmsLogoutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  PageRoute: PageRoute,
+  ApiPublicCmsLoginRoute: ApiPublicCmsLoginRoute,
+  ApiPublicCmsLogoutRoute: ApiPublicCmsLogoutRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
