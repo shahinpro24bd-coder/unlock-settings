@@ -14,3 +14,5 @@
 - Verify editor credentials only in server routes using encrypted HTTP-only sessions; the preview adapter must not auto-authenticate visitors.
 - Open the public home by default and keep public navigation separate from the authenticated *2.html editor copies.
 - Host original uploaded media using asset-pointer URLs and keep editable legacy HTML/CSS/JS in public/website for the preview.
+- Preserve asset-pointer URLs on Vercel with an external rewrite to the verified public asset origin; Vercel does not provide the platform's asset-serving path itself.
+- Derive the root favicon from the original website brand mark and remove the template favicon so browser tabs and direct favicon requests never use template branding.
