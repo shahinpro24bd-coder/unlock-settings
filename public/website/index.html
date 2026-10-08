@@ -455,6 +455,19 @@ a{color:#bf9456;text-decoration:none}
 <div class="video-L8">
 <iframe allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowfullscreen="true" class="video-embed-iframe" frameborder="0" scrolling="no" src="https://www.facebook.com/plugins/video.php?height=314&amp;href=https%3A%2F%2Fwww.facebook.com%2Freel%2F1029936266394884%2F&amp;show_text=false&amp;width=560&amp;t=0" title="ক্যান্সার সার্জারি বিশেষজ্ঞ ভিডিও">
 </iframe>
+
+<div class="video-poster-overlay" onclick="playCancerVideo(this)" role="button" tabindex="0" aria-label="ভিডিও চালান">
+<img alt="ক্যান্সার সার্জারি ভিডিও থাম্বনেইল" src="/__l5e/assets-v1/39bebe81-c3e7-4d60-8f5e-d4d1273e3c6a/cancer-video-thumbnail.png"/>
+<span class="video-poster-play"><svg viewbox="0 0 24 24"><path d="M8 5v14l11-7z"></path></svg></span>
+</div>
+</div>
+<script>
+function playCancerVideo(overlay){
+  var f = overlay.parentNode.querySelector('iframe');
+  if (f && f.src.indexOf('autoplay=1') === -1) { f.src = f.src.replace('&t=0','&autoplay=1&t=0'); }
+  overlay.style.display = 'none';
+}
+</script>
 </div>
 <!-- Video Information -->
 <div class="video-L9">
