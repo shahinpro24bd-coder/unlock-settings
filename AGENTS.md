@@ -11,4 +11,6 @@
 
 - Render the uploaded legacy website inside an isolated iframe at the index route to preserve its original CSS, scripts, and appearance without replacing TanStack Start.
 - Keep the browser CMS adapter limited to the uploaded preview document; its session-only edits must never be presented as live authentication or live website saves.
+- Verify editor credentials only in server routes using encrypted HTTP-only sessions; the preview adapter must not auto-authenticate visitors.
+- Open the public home by default and keep public navigation separate from the authenticated *2.html editor copies.
 - Host original uploaded media using asset-pointer URLs and keep editable legacy HTML/CSS/JS in public/website for the preview.

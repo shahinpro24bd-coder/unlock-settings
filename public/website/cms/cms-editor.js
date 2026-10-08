@@ -1,5 +1,6 @@
 /* CMS visual editor — only loaded on the *2.html edit copies. */
 (function () {
+  if (!/2\.html$/.test(location.pathname)) return;
   var page = window.CMS_PAGE || "index";
   var changes = {}; // cms_id -> {cms_id, kind, value}
   var authed = false;
@@ -191,12 +192,13 @@
           return;
         }
 
+        if (e.target.closest(".navbar a[href]")) return;
         var el = e.target.closest("[data-cms-id]");
         if (!el) {
           /* clicking outside finishes the current edit */
           if (editing) editing.blur();
           /* while in edit mode, never navigate away by accident */
-          if (e.target.closest("a,button")) e.preventDefault();
+          if (e.target.closest("button")) e.preventDefault();
           return;
         }
         e.preventDefault();
@@ -790,7 +792,7 @@
       return r.json();
     })
     .then(function (d) {
-      if (d && d.authenticated && !authed) { enableEditing(); toggleSettings(); }
+      if (d && d.authenticated && !authed) enableEditing();
     })
     .catch(function () {});
 })();
