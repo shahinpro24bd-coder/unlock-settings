@@ -5,4 +5,5 @@
 - [x] Verify website media, loaded icon fonts, and favicon across all 22 public and editor pages; browser errors absent.
 - [x] Remove edit-copy navigation from main pages and open the public home by default.
 - [x] Require server-verified admin login on every *2.html editor copy.
-- [x] Verify public pages, incorrect login, correct login, Settings changes, and logout.
+- [x] Verify public pages, incorrect login, correct login, Settings changes, and logout.- [x] Make admin login work on Vercel without host keys (database-verified login).
+- [x] Save editor changes live so every visitor sees them on the public pages.
