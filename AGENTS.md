@@ -10,8 +10,8 @@
 <!-- LOVABLE:END -->
 
 - Render the uploaded legacy website inside an isolated iframe at the index route to preserve its original CSS, scripts, and appearance without replacing TanStack Start.
-- Keep the browser CMS adapter limited to the uploaded preview document; its session-only edits must never be presented as live authentication or live website saves.
-- Verify editor credentials only in server routes using encrypted HTTP-only sessions; the preview adapter must not auto-authenticate visitors.
+- The legacy CMS adapter (public/website/preview-session.js) maps /api/public/cms/* calls to Lovable Cloud REST/RPC with the publishable key, so static hosts like Vercel need no server code or env keys.
+- Verify editor credentials and session tokens only inside SECURITY DEFINER database functions; credential and session tables stay without client grants, and only cms_content is publicly readable.
 - Open the public home by default and keep public navigation separate from the authenticated *2.html editor copies.
 - Host original uploaded media using asset-pointer URLs and keep editable legacy HTML/CSS/JS in public/website for the preview.
 - Preserve asset-pointer URLs on Vercel with an external rewrite to the verified public asset origin; Vercel does not provide the platform's asset-serving path itself.
