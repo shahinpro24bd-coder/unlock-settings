@@ -1,24 +1,16 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { WebsitePreview } from "@/components/website-preview";
 
-// No head() here: the home route inherits title/description/og/twitter from
-// __root.tsx, and ships no og:image so serve-time hosting can inject the
-// project's social preview (explicit og:image or latest screenshot).
 export const Route = createFileRoute("/")({
-  component: Index,
+  head: () => ({
+    meta: [
+      { title: "ডাঃ এম এ বি সিদ্দিক — ওয়েবসাইট প্রিভিউ" },
+      { name: "description", content: "অধ্যাপক ডাঃ এম এ বি সিদ্দিকের ওয়েবসাইট ও রং-ফন্ট Settings-এর প্রিভিউ।" },
+      { property: "og:title", content: "ডাঃ এম এ বি সিদ্দিক — ওয়েবসাইট প্রিভিউ" },
+      { property: "og:description", content: "ওয়েবসাইটের রং ও ফন্ট পরিবর্তনের প্রিভিউ।" },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
+    ],
+  }),
+  component: WebsitePreview,
 });
-
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
-function Index() {
-  return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
-    </div>
-  );
-}
